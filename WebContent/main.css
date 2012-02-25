@@ -5,15 +5,54 @@
     font-style: normal;
 }
 
+body {
+	background: #111;
+	margin: 0;
+	padding: 0;
+}
+
+.breadcrumb {
+	background: #e5e5e5;
+	padding: 2px;
+}
+
 .breadcrumb li {
+	background: url(img/right-arrow.png) no-repeat center left;
+	color: #444;
 	display: inline-block;
+	font-size: 0.9em;
 	font-style: italic;
+	margin-right: 7px;
+	padding-left: 12px;
+	text-shadow: 0 1px 0 #F5F5F5;
+}
+
+.breadcrumb li:FIRST-CHILD {
+	background: none;
+}
+
+#container {
+	background: #ddd;
+	background: -webkit-gradient(linear, 190 top, 200 top, from(#ddd), to(#ccc));
 }
 
 #content {
+	background: #F0F0F0;
 	margin-left: 200px;
 	min-height: 600px;
 }
+
+footer {
+	border-top: 3px solid #003e4c;
+	color: #aaa;
+	font-family: sans-serif;
+	font-size: 0.9em;
+	padding: 10px 20px;
+}
+
+	footer a {
+		color: #eee;
+	}
 
 nav {
 	
@@ -38,13 +77,29 @@ nav {
 		color: #003e4c;
 	}
 
+.page-header {
+}
+
+.page-header h1 {
+	font-family: 'Bebas';
+	margin: 0;
+	padding: 10px 20px;
+}
+
+.page-nav {
+	float: right;
+	font-family: 'Bebas';
+	padding: 10px;
+}
+
 .page-nav li {
 	display: inline-block;
-	font-family: 'Bebas';
-	margin-right: 5px;
+	margin-right: 10px;
 }
 
 #sidebar {
 	float: left;
+	font-family: 'Bebas';
+	padding: 10px 5px;
 	width: 200px;
 }
