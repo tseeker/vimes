@@ -24,13 +24,14 @@ String cp = request.getContextPath();
 	
 		<article id="content">
 			<header id="header">
-				<nav id="page-nav">
+				<nav class="page-nav">
 					<ul>
-						<li><a href="<%=cp %>/wiki/<%=titre %>">Page</a></li>
-						<li><a href="<%=cp %>/source/<%=titre %>">Source</a></li>
-						<li><a href="<%=cp %>/history/<%=titre %>">History</a></li>
+						<li><a href="<%=cp %>/wiki/<%=titre %>" class="<%=request.getRequestURI().startsWith(cp + "/wiki") ? "select" : "" %>">Page</a></li>
+						<li><a href="<%=cp %>/source/<%=titre %>" class="<%=request.getRequestURI().startsWith(cp + "/source") ? "select" : "" %>">Source</a></li>
+						<li><a href="<%=cp %>/history/<%=titre %>" class="<%=request.getRequestURI().startsWith(cp + "/history") ? "select" : "" %>">History</a></li>
 					</ul>
 				</nav>
+				<%@include file="fragments/breadcrumb.jsp" %>
 			</header>
 			<%=contenu %>
 		</article>
