@@ -52,11 +52,15 @@ class MarkdownLoader {
 	public String getHTML(String path) throws IllegalArgumentException,
 			IOException {
 		File file = new File(this.basePath, path + ".markdown")
-				.getAbsoluteFile();
-		if (!file.getAbsolutePath().startsWith(this.basePath.getAbsolutePath())
-				|| file.getAbsolutePath().startsWith(
-						new File(this.basePath, ".git").getAbsolutePath())) {
-			throw new IllegalArgumentException(path);
+				.getCanonicalFile();
+		if (!file.getPath().startsWith(this.basePath.getAbsolutePath())) {
+			throw new IllegalArgumentException(
+					"Trying to access parent directory (" + path + ")");
+		}
+		if (file.getPath().startsWith(
+				new File(this.basePath, ".git").getAbsolutePath())) {
+			throw new IllegalArgumentException(
+					"Trying to access files in .git (" + path + ")");
 		}
 
 		String markdown = this.getFileContents(file);

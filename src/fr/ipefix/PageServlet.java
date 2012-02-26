@@ -1,5 +1,6 @@
 package fr.ipefix;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 /**
  * Servlet implementation class PageServlet
  */
@@ -19,6 +22,26 @@ public class PageServlet extends HttpServlet {
 
 	private MarkdownLoader loader;
 	private String defaultFile;
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String path = request.getParameter("p");
+		if (path == null || "".equals(path = path.trim())) {
+			path = this.defaultFile;
+		}
+
+		String content;
+		try {
+			content = this.loader.getHTML(path);
+		} catch (IllegalArgumentException e) {
+			this.displayPathError(e, request, response);
+			return;
+		} catch (IOException e) {
+			this.displayPageNotFound(path, request, response);
+			return;
+		}
+		this.render(content, request, response);
+	}
 
 	private void initProperties() throws IOException {
 		Properties properties = new Properties();
@@ -31,21 +54,36 @@ public class PageServlet extends HttpServlet {
 				"/var/lib/vimes"));
 	}
 
-	protected void doGet(HttpServletRequest request,
+	private void displayPageNotFound(String path, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		this.renderError("The page you requested was not found.",
+				"Requested path was " + StringEscapeUtils.escapeHtml4(path),
+				request, response);
+	}
 
-		if (this.loader == null) {
-			this.initProperties();
-		}
+	private void displayPathError(IllegalArgumentException e,
+			HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.renderError("The path you requested is invalid.",
+				StringEscapeUtils.escapeHtml4(e.getMessage()), request,
+				response);
+	}
 
-		String path = request.getParameter("p");
-		if (path == null || "".equals(path = path.trim())) {
-			path = this.defaultFile;
-		}
+	private void renderError(String error, String errorInfo,
+			HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = getServletContext()
+				.getRequestDispatcher("/error-page.jsp");
+		request.setAttribute("error", error);
+		request.setAttribute("error-info", errorInfo);
+		dispatcher.forward(request, response);
+	}
 
+	private void render(String content, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/page-template.jsp");
-		request.setAttribute("contenu", this.loader.getHTML(path));
+		request.setAttribute("contenu", content);
 		dispatcher.forward(request, response);
 	}
 
