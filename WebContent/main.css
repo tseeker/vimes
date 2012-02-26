@@ -33,18 +33,22 @@ body {
 
 #container {
 	background: #ddd;
-	background: -webkit-gradient(linear, 190 top, 200 top, from(#ddd), to(#ccc));
+	background: -webkit-gradient(linear, 195 top, 200 top, from(#ddd), to(#ccc));
 }
 
-#content {
+#content,
+#content-toolbox {
 	background: #F0F0F0;
 	border-left: 1px solid #bbb;
 	margin-left: 200px;
+}
+
+#content {
 	min-height: 600px;
 	padding-bottom: 10px;
 }
 
-footer {
+#footer {
 	border-top: 3px solid #006a81;
 	color: #aaa;
 	font-family: sans-serif;
@@ -52,7 +56,7 @@ footer {
 	padding: 10px 20px;
 }
 
-	footer a {
+	#footer a {
 		color: #eee;
 	}
 
@@ -132,16 +136,20 @@ nav {
 	margin-right: 10px;
 }
 
-#sidebar {
+#sidebar,
+#sidebar-toolbox {
 	float: left;
-	padding-top: 10px;
 	width: 200px;
 }
 
-#sidebar .last-commit {
-	color: #888;
-	font-size: x-small;
-	margin-top: 30px;
+#sidebar {
+	padding-top: 10px;
+}
+
+.toolbox {
+	color: #777;
+	font-size: small;
+	padding: 3px;
 }
 
 .wiki-content {

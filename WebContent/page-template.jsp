@@ -26,4 +26,17 @@ String cp = request.getContextPath();
 	<div class="wiki-content"><%=contenu %></div>
 </article>
 
+<footer id="toolbox">
+	<aside id="sidebar-toolbox" class="toolbox">
+		Last commit <%=headCommit.getName().substring(0, 7) %>
+	</aside>
+	<article id="content-toolbox" class="toolbox">
+		<nav>
+			<ul>
+				<li><a href="<%=cp %>/wiki<%=path %>?format=html">Download page</a></li>
+			</ul>
+		</nav>
+	</article>
+</footer>
+
 <%@include file="fragments/footer.jsp" %>

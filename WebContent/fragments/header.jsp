@@ -19,7 +19,7 @@ treeWalk.addTree(new RevWalk(repo).parseTree(head));
 <html lang="fr">
 	<head>
 		<meta charset="utf-8">
-		<title><%=current %> &nbsp;&laquo; wiki</title>
+		<title><%=current.length() == 0 ? "Home" : current %> &nbsp;&laquo; wiki</title>
 		
 		<link href="<%=cp %>/main.css" rel="stylesheet" type="text/css" />
 	</head>
@@ -44,8 +44,4 @@ treeWalk.addTree(new RevWalk(repo).parseTree(head));
 						</li>
 					</ul>
 				</nav>
-				
-				<div class="last-commit">
-					Last commit <%=headCommit.getName().substring(0, 7) %> by <%=headCommit.getAuthorIdent().getName() %>
-				</div>
 			</aside>
