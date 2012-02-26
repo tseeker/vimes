@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 @WebServlet("/source")
 public class SourceServlet extends VimesServletBase {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,13 +25,17 @@ public class SourceServlet extends VimesServletBase {
 
 		String content;
 		content = this.repo.getFile(path + ".markdown").getContent();
-		if (content == null ) {
+		if (content == null) {
 			this.displayPageNotFound(path, request, response);
+		} else if ("raw".equalsIgnoreCase(request.getParameter("format"))) {
+			response.setContentType("text/plain");
+			response.getWriter().print(content);
 		} else {
 			String raw = StringEscapeUtils.escapeHtml4(content).replace("\n", "<br/>");
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/page-template.jsp");
 			request.setAttribute("contenu", raw);
+			request.setAttribute("contentClass", "source");
 			request.setAttribute("repo", this.repo.getRepository());
 			dispatcher.forward(request, response);
 		}

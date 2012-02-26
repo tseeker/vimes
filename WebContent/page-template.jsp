@@ -23,7 +23,7 @@ String cp = request.getContextPath();
 		<%@include file="fragments/breadcrumb.jsp" %>
 	</header>
 	
-	<div class="wiki-content"><%=contenu %></div>
+	<div class="wiki-content <%=request.getAttribute("contentClass") %>"><%=contenu %></div>
 </article>
 
 <footer id="toolbox">
@@ -33,7 +33,8 @@ String cp = request.getContextPath();
 	<article id="content-toolbox" class="toolbox">
 		<nav>
 			<ul>
-				<li><a href="<%=cp %>/wiki<%=path %>?format=html">Download page</a></li>
+				<li><a href="<%=cp %>/wiki<%=path %>?format=raw">Download page</a></li>
+				<li><a href="<%=cp %>/source<%=path %>?format=raw">Download source</a></li>
 			</ul>
 		</nav>
 	</article>

@@ -8,8 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 /**
  * Servlet implementation class PageServlet
  */
@@ -37,13 +35,14 @@ public class PageServlet extends VimesServletBase {
 	private void render(String content, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String jsp = "/page-template.jsp";
-		if ("html".equalsIgnoreCase(request.getParameter("format"))) {
+		if ("raw".equalsIgnoreCase(request.getParameter("format"))) {
 			jsp = "/page-rawhtml.jsp";
 		}
 		
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher(jsp);
 		request.setAttribute("contenu", content);
+		request.setAttribute("contentClass", "page");
 		request.setAttribute("repo", this.repo.getRepository());
 		dispatcher.forward(request, response);
 	}

@@ -12,7 +12,14 @@ if (current.length() > 0) {
 			continue;
 		}
 		path += "/" + s; %>
-		<li><a href="<%=request.getContextPath() %><%=path %>"><%=s %></a></li>
+		<li>
+			<a href="<%=request.getContextPath() %><%=path %>">
+				<%=s %>
+			</a>
+			<%if ("source".equalsIgnoreCase((String) request.getAttribute("contentClass"))) {%>
+				(source)
+			<%} %>
+		</li>
 	<%} %>
 	</ul>
 </nav>

@@ -3,6 +3,8 @@
     src: url('bebas.woff');
     font-weight: normal;
     font-style: normal;
+    letter-spacing: 1px;
+	word-spacing: 3px;
 }
 
 body {
@@ -77,11 +79,12 @@ body {
 
 #main-nav > ul > li > ul * {
 	font-family: serif;
+	margin-left: -5px;
+	padding-left: 10px;
+	word-spacing: normal;
 }
 
 #main-nav .page {
-	margin-left: -5px;
-	padding-left: 20px;
 }
 
 #main-nav .current {
@@ -152,10 +155,19 @@ nav {
 	padding: 3px;
 }
 
+	.toolbox li {
+		display: inline-block;
+	}
+
 .wiki-content {
 	font-family: 'Arial', sans-serif;
 	font-size: 14px;
 	padding: 0 10px;
+}
+
+.wiki-content.source {
+	font-family: monospace;
+	margin-top: 10px;
 }
 
 	.wiki-content h1 {
