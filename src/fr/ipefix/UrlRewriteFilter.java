@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class UrlRewriteFilter
  */
-@WebFilter("/wiki/*")
+@WebFilter(urlPatterns = {"/wiki/*", "/source/*", "/history/*"})
 public class UrlRewriteFilter implements Filter {
 	
-	private static Pattern URL_PATTERN = Pattern.compile("wiki/(.*)");
+	private static Pattern URL_PATTERN = Pattern.compile("/\\w+/(\\w+)/(.*)");
 
 	public void destroy() {
 	}
@@ -31,8 +31,9 @@ public class UrlRewriteFilter implements Filter {
 		
 		Matcher m = URL_PATTERN.matcher(((HttpServletRequest) request).getRequestURI());
 		if (m.find()) {
-			String page = m.group(1);
-			String url = "/wiki?p=" + page;
+			String prefix = m.group(1);
+			String page = m.group(2);
+			String url = "/" + prefix + "?p=" + page;
 			request.getRequestDispatcher(url).forward(request, response);
 		} else {
 			// pass the request along the filter chain
