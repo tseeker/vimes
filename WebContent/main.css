@@ -38,6 +38,7 @@ body {
 
 #content {
 	background: #F0F0F0;
+	border-left: 1px solid #bbb;
 	margin-left: 200px;
 	min-height: 600px;
 	padding-bottom: 10px;
@@ -57,8 +58,13 @@ footer {
 
 #main-nav .home {
 	border-bottom: 1px dashed #888;
-	margin-bottom: 5px;
-	padding-bottom: 5px;
+	font-family: 'Bebas';
+	margin-bottom: 10px;
+	padding-bottom: 7px;
+}
+
+#main-nav .page {
+	padding-left: 8px;
 }
 
 nav {
@@ -73,6 +79,7 @@ nav {
 	
 	nav a {
 		color: inherit;
+		display: block;
 		text-decoration: none;
 		text-shadow: 0 1px 0 #F0F0F0;
 	}
@@ -91,6 +98,7 @@ nav {
 .page-header h1 {
 	font-family: 'Bebas';
 	font-size: 1.5em;
+	letter-spacing: 1px;
 	margin: 0;
 	padding: 10px 20px;
 	text-shadow: 0 2px 0 #white;
@@ -109,9 +117,8 @@ nav {
 
 #sidebar {
 	float: left;
-	font-family: 'Bebas';
-	padding: 10px 5px;
-	width: 190px;
+	padding: 10px 0 0 5px;
+	width: 195px;
 }
 
 .wiki-content {
@@ -124,6 +131,7 @@ nav {
 		border-bottom: 1px solid #bbb;
 	    font-family: 'Bebas';
 		font-size: 2em;
+		letter-spacing: 1px;
 		padding-bottom: 5px;
 	}
 	

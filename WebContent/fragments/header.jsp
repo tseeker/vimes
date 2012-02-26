@@ -1,3 +1,4 @@
+<%@page import="org.eclipse.jgit.lib.ObjectLoader"%>
 <%@page import="org.eclipse.jgit.treewalk.TreeWalk"%>
 <%@page import="org.eclipse.jgit.revwalk.RevTree"%>
 <%@page import="org.eclipse.jgit.lib.Constants"%>
@@ -14,7 +15,7 @@ treeWalk.addTree(new RevWalk(repo).parseTree(head));
 <html lang="fr">
 	<head>
 		<meta charset="utf-8">
-		<title><%=current %> &nbsp;&nbsp;&laquo; wiki</title>
+		<title><%=current %> &nbsp;&laquo; wiki</title>
 		
 		<link href="<%=cp %>/main.css" rel="stylesheet" type="text/css" />
 	</head>
@@ -25,11 +26,12 @@ treeWalk.addTree(new RevWalk(repo).parseTree(head));
 					<ul>
 						<li class="home"><a href="<%=cp %>">Accueil</a></li>
 					<%while (treeWalk.next()) {
-						String fileName = treeWalk.getNameString(); 
+						ObjectLoader loader = repo.open(treeWalk.getObjectId(0));
+						String fileName = treeWalk.getNameString();
 						if (fileName.endsWith(".markdown")) {
 							String displayName = fileName.substring(0, fileName.length() - 9); %>
-						<li><a href="<%=cp %>/wiki/<%=displayName %>"><%=displayName %></a></li>
-					<%	}%> 
+						<li class="page"><a href="<%=cp %>/wiki/<%=displayName %>"><%=displayName %></a></li>
+					<%	} %> 
 					<%} %>
 					</ul>
 				</nav>
