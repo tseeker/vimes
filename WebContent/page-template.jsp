@@ -19,7 +19,7 @@ String cp = request.getContextPath();
 				<li><a href="<%=cp %>/history/<%=titre %>" class="<%=request.getRequestURI().startsWith(cp + "/history") ? "select" : "" %>">History</a></li>
 			</ul>
 		</nav>
-		<h1><%=current %></h1>
+		<h1><%=current.length() == 0 ? "Home" : current %></h1>
 		<%@include file="fragments/breadcrumb.jsp" %>
 	</header>
 	

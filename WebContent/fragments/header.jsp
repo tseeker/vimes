@@ -28,15 +28,20 @@ treeWalk.addTree(new RevWalk(repo).parseTree(head));
 			<aside id="sidebar">
 				<nav id="main-nav">
 					<ul>
-						<li class="home"><a href="<%=cp %>">Accueil</a></li>
-					<%while (treeWalk.next()) {
-						ObjectLoader loader = repo.open(treeWalk.getObjectId(0));
-						String fileName = treeWalk.getNameString();
-						if (fileName.endsWith(".markdown")) {
-							String displayName = fileName.substring(0, fileName.length() - 9); %>
-						<li class="page"><a href="<%=cp %>/wiki/<%=displayName %>"><%=displayName %></a></li>
-					<%	} %> 
-					<%} %>
+						<li class="home <%=current.length() == 0 ? "current" : "" %>"><a href="<%=cp %>/wiki">Home</a></li>
+						<li class="pages">Pages
+							<ul>
+							<%while (treeWalk.next()) {
+								ObjectLoader loader = repo.open(treeWalk.getObjectId(0));
+								String fileName = treeWalk.getNameString();
+								if (fileName.endsWith(".markdown")) {
+									String displayName = fileName.substring(0, fileName.length() - 9);
+									if ("index".equalsIgnoreCase(displayName)) continue; %>
+								<li class="page <%=displayName.equals(current) ? "current" : "" %>"><a href="<%=cp %>/wiki/<%=displayName %>"><%=displayName %></a></li>
+							<%	} %> 
+							<%} %>
+							</ul>
+						</li>
 					</ul>
 				</nav>
 				

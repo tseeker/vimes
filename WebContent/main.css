@@ -56,15 +56,32 @@ footer {
 		color: #eee;
 	}
 
-#main-nav .home {
-	border-bottom: 1px dashed #888;
+#main-nav > ul > li {
+	border-top: 1px dashed #888;
 	font-family: 'Bebas';
-	margin-bottom: 10px;
-	padding-bottom: 7px;
+	margin: 7px 0 10px;
+	padding-left: 5px;
+}
+
+#main-nav > ul > li:FIRST-CHILD {
+	border-top: none;
+}
+
+#main-nav > ul > li > ul {
+	margin-top: 3px;
+}
+
+#main-nav > ul > li > ul * {
+	font-family: serif;
 }
 
 #main-nav .page {
-	padding-left: 8px;
+	margin-left: -5px;
+	padding-left: 20px;
+}
+
+#main-nav .current {
+	background-color: #c0c0c0;
 }
 
 nav {
@@ -117,12 +134,13 @@ nav {
 
 #sidebar {
 	float: left;
-	padding: 10px 0 0 5px;
-	width: 195px;
+	padding-top: 10px;
+	width: 200px;
 }
 
 #sidebar .last-commit {
-	font-size: small;
+	color: #888;
+	font-size: x-small;
 	margin-top: 30px;
 }
 
