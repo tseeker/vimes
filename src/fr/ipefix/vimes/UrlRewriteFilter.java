@@ -1,4 +1,4 @@
-package fr.ipefix;
+package fr.ipefix.vimes;
 
 import java.io.IOException;
 import java.util.regex.Matcher;

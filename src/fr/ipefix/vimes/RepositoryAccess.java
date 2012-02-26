@@ -1,4 +1,4 @@
-package fr.ipefix;
+package fr.ipefix.vimes;
 
 import java.io.File;
 import java.util.Properties;
