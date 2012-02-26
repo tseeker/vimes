@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @WebFilter(urlPatterns = {"/wiki/*", "/source/*", "/history/*"})
 public class UrlRewriteFilter implements Filter {
 	
-	private static Pattern URL_PATTERN = Pattern.compile("/\\w+/(\\w+)/(.*)");
+	private static Pattern URL_PATTERN = Pattern.compile("^/(\\w+)/(.*)");
 
 	public void destroy() {
 	}
@@ -29,7 +29,7 @@ public class UrlRewriteFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		Matcher m = URL_PATTERN.matcher(((HttpServletRequest) request).getRequestURI());
+		Matcher m = URL_PATTERN.matcher(((HttpServletRequest) request).getServletPath());
 		if (m.find()) {
 			String prefix = m.group(1);
 			String page = m.group(2);
