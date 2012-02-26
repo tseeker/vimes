@@ -22,7 +22,8 @@ String cp = request.getContextPath();
 		<h1><%=current %></h1>
 		<%@include file="fragments/breadcrumb.jsp" %>
 	</header>
-	<%=contenu %>
+	
+	<div class="wiki-content"><%=contenu %></div>
 </article>
 
 <%@include file="fragments/footer.jsp" %>

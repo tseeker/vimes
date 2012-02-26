@@ -1,6 +1,7 @@
 package fr.ipefix;
 
 import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -12,16 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 /**
  * Servlet implementation class PageServlet
  */
 @WebServlet("/wiki")
 public class PageServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	private MarkdownLoader loader;
-	private String defaultFile;
+	private MarkdownLoader		loader;
+	private String				defaultFile;
+	private String				gitDirectory;
+	private Repository			repository;
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -43,15 +48,27 @@ public class PageServlet extends HttpServlet {
 		this.render(content, request, response);
 	}
 
-	private void initProperties() throws IOException {
-		Properties properties = new Properties();
-		properties.load(getServletContext().getResourceAsStream(
-				"/WEB-INF/vimes.properties"));
+	@Override
+	public void init() throws ServletException {
+		try {
+			Properties properties = new Properties();
+			properties.load(getServletContext().getResourceAsStream(
+					"/WEB-INF/vimes.properties"));
 
-		this.defaultFile = properties.getProperty("defaultFile", "index");
+			this.defaultFile = properties.getProperty("defaultFile", "index");
+			this.gitDirectory = properties.getProperty("basePath",
+					"/var/lib/vimes");
+			this.loader = new MarkdownLoader(gitDirectory);
 
-		this.loader = new MarkdownLoader(properties.getProperty("basePath",
-				"/var/lib/vimes"));
+			// Init git repo
+			this.repository = new FileRepositoryBuilder()
+							.setGitDir(new File(gitDirectory + "/.git"))
+							.readEnvironment()
+							.findGitDir()
+							.build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void displayPageNotFound(String path, HttpServletRequest request,
@@ -84,6 +101,7 @@ public class PageServlet extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/page-template.jsp");
 		request.setAttribute("contenu", content);
+		request.setAttribute("repo", repository);
 		dispatcher.forward(request, response);
 	}
 

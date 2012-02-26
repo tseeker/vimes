@@ -40,10 +40,11 @@ body {
 	background: #F0F0F0;
 	margin-left: 200px;
 	min-height: 600px;
+	padding-bottom: 10px;
 }
 
 footer {
-	border-top: 3px solid #003e4c;
+	border-top: 3px solid #006a81;
 	color: #aaa;
 	font-family: sans-serif;
 	font-size: 0.8em;
@@ -104,4 +105,8 @@ nav {
 	font-family: 'Bebas';
 	padding: 10px 5px;
 	width: 200px;
+}
+
+.wiki-content {
+	padding: 0 10px;
 }
