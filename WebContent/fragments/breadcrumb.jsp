@@ -3,7 +3,7 @@ String path = "";
 %>
 <nav class="breadcrumb">
 	<ul>
-		<li><a href="<%=request.getContextPath() %>">Home</a></li>
+		<li><a href="<%=request.getContextPath() %>/wiki">Home</a></li>
 	<%for (String s : pages) {
 		s = s.trim();
 		

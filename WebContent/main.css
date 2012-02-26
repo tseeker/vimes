@@ -55,6 +55,12 @@ footer {
 		color: #eee;
 	}
 
+#main-nav .home {
+	border-bottom: 1px dashed #888;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+
 nav {
 	
 }
@@ -84,6 +90,7 @@ nav {
 
 .page-header h1 {
 	font-family: 'Bebas';
+	font-size: 1.5em;
 	margin: 0;
 	padding: 10px 20px;
 	text-shadow: 0 2px 0 #white;
@@ -104,9 +111,23 @@ nav {
 	float: left;
 	font-family: 'Bebas';
 	padding: 10px 5px;
-	width: 200px;
+	width: 190px;
 }
 
 .wiki-content {
+	font-family: 'Arial', sans-serif;
+	font-size: 14px;
 	padding: 0 10px;
 }
+
+	.wiki-content h1 {
+		border-bottom: 1px solid #bbb;
+	    font-family: 'Bebas';
+		font-size: 2em;
+		padding-bottom: 5px;
+	}
+	
+	.wiki-content h2 {
+	    font-family: 'Bebas';
+		font-size: 1.6em;
+	}
