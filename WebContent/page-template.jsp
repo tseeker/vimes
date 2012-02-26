@@ -2,6 +2,8 @@
 String titre = request.getParameter("p") == null ? "" : request.getParameter("p");
 String contenu = (String) request.getAttribute("contenu");
 contenu = contenu == null ? "" : contenu;
+String[] pages = titre.split("/");
+String current = pages[pages.length - 1];
 
 String cp = request.getContextPath();
 %>
@@ -9,7 +11,7 @@ String cp = request.getContextPath();
 <html lang="fr">
 	<head>
 		<meta charset="utf-8">
-		<title><%=titre.length() > 0 ? titre : "Untitled" %></title>
+		<title><%=current %> &nbsp;&nbsp;&laquo; wiki</title>
 		
 		<link href="<%=cp %>/main.css" rel="stylesheet" type="text/css" />
 	</head>
@@ -32,7 +34,7 @@ String cp = request.getContextPath();
 							<li><a href="<%=cp %>/history/<%=titre %>" class="<%=request.getRequestURI().startsWith(cp + "/history") ? "select" : "" %>">History</a></li>
 						</ul>
 					</nav>
-					<h1><%=titre.split("/")[titre.split("/").length-1] %></h1>
+					<h1><%=current %></h1>
 					<%@include file="fragments/breadcrumb.jsp" %>
 				</header>
 				<%=contenu %>
