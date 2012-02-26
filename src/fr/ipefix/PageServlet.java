@@ -39,16 +39,12 @@ public class PageServlet extends HttpServlet {
 		}
 
 		String content;
-		try {
-			content = this.repo.getLoader().getHTML(path);
-		} catch (IllegalArgumentException e) {
-			this.displayPathError(e, request, response);
-			return;
-		} catch (IOException e) {
+		content = this.repo.getFile(path + ".markdown").getContent();
+		if (content == null ) {
 			this.displayPageNotFound(path, request, response);
-			return;
+		} else {
+			this.render(this.repo.getLoader().markdown(content), request, response);
 		}
-		this.render(content, request, response);
 	}
 
 	private void displayPageNotFound(String path, HttpServletRequest request,
@@ -58,21 +54,14 @@ public class PageServlet extends HttpServlet {
 				request, response);
 	}
 
-	private void displayPathError(IllegalArgumentException e,
-			HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		this.renderError("The path you requested is invalid.",
-				StringEscapeUtils.escapeHtml4(e.getMessage()), request,
-				response);
-	}
-
 	private void renderError(String error, String errorInfo,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = getServletContext()
+		RequestDispatcher dispatcher = this.getServletContext()
 				.getRequestDispatcher("/error-page.jsp");
 		request.setAttribute("error", error);
 		request.setAttribute("error-info", errorInfo);
+		request.setAttribute("repo", this.repo.getRepository());
 		dispatcher.forward(request, response);
 	}
 

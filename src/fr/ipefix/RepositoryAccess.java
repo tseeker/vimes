@@ -10,6 +10,8 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
+import com.petebevin.markdown.MarkdownProcessor;
+
 final class RepositoryAccess {
 
 	private static RepositoryAccess singleton;
@@ -17,7 +19,7 @@ final class RepositoryAccess {
 	private String defaultFile;
 	private String gitDirectory;
 	private FileRepository repository;
-	private MarkdownLoader loader;
+	private MarkdownProcessor loader;
 
 	private RepositoryAccess(ServletContext context) throws ServletException {
 		try {
@@ -28,7 +30,7 @@ final class RepositoryAccess {
 			this.defaultFile = properties.getProperty("defaultFile", "index");
 			this.gitDirectory = properties.getProperty("basePath",
 					"/var/lib/vimes");
-			this.loader = new MarkdownLoader(this.gitDirectory);
+			this.loader = new MarkdownProcessor();
 
 			// Init git repo
 			this.repository = new FileRepositoryBuilder()
@@ -50,7 +52,11 @@ final class RepositoryAccess {
 		return RepositoryAccess.singleton;
 	}
 
-	public MarkdownLoader getLoader() {
+	public GitFile getFile(String path) {
+		return new GitFile(this.repository, path);
+	}
+
+	public MarkdownProcessor getLoader() {
 		return this.loader;
 	}
 
