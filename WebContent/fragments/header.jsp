@@ -1,3 +1,6 @@
+<%@page import="org.eclipse.jgit.api.Git"%>
+<%@page import="org.eclipse.jgit.revwalk.RevCommit"%>
+<%@page import="org.eclipse.jgit.lib.ObjectLoader"%>
 <%@page import="org.eclipse.jgit.treewalk.TreeWalk"%>
 <%@page import="org.eclipse.jgit.revwalk.RevTree"%>
 <%@page import="org.eclipse.jgit.lib.Constants"%>
@@ -6,6 +9,8 @@
 <%@page import="org.eclipse.jgit.lib.Repository"%>
 <%
 Repository repo = (Repository) request.getAttribute("repo");
+Git git = new Git(repo);
+RevCommit headCommit = git.log().call().iterator().next();
 ObjectId head = repo.resolve(Constants.HEAD);
 TreeWalk treeWalk = new TreeWalk(repo);
 treeWalk.addTree(new RevWalk(repo).parseTree(head));
@@ -14,7 +19,7 @@ treeWalk.addTree(new RevWalk(repo).parseTree(head));
 <html lang="fr">
 	<head>
 		<meta charset="utf-8">
-		<title><%=current %> &nbsp;&nbsp;&laquo; wiki</title>
+		<title><%=current.length() == 0 ? "Home" : current %> &nbsp;&laquo; wiki</title>
 		
 		<link href="<%=cp %>/main.css" rel="stylesheet" type="text/css" />
 	</head>
@@ -23,14 +28,20 @@ treeWalk.addTree(new RevWalk(repo).parseTree(head));
 			<aside id="sidebar">
 				<nav id="main-nav">
 					<ul>
-						<li class="home"><a href="<%=cp %>">Accueil</a></li>
-					<%while (treeWalk.next()) {
-						String fileName = treeWalk.getNameString(); 
-						if (fileName.endsWith(".markdown")) {
-							String displayName = fileName.substring(0, fileName.length() - 9); %>
-						<li><a href="<%=cp %>/wiki/<%=displayName %>"><%=displayName %></a></li>
-					<%	}%> 
-					<%} %>
+						<li class="home <%=current.length() == 0 ? "current" : "" %>"><a href="<%=cp %>/wiki">Home</a></li>
+						<li class="pages">Pages
+							<ul>
+							<%while (treeWalk.next()) {
+								ObjectLoader loader = repo.open(treeWalk.getObjectId(0));
+								String fileName = treeWalk.getNameString();
+								if (fileName.endsWith(".markdown")) {
+									String displayName = fileName.substring(0, fileName.length() - 9);
+									if ("index".equalsIgnoreCase(displayName)) continue; %>
+								<li class="page <%=displayName.equals(current) ? "current" : "" %>"><a href="<%=cp %>/wiki/<%=displayName %>"><%=displayName %></a></li>
+							<%	} %> 
+							<%} %>
+							</ul>
+						</li>
 					</ul>
 				</nav>
 			</aside>

@@ -33,17 +33,22 @@ body {
 
 #container {
 	background: #ddd;
-	background: -webkit-gradient(linear, 190 top, 200 top, from(#ddd), to(#ccc));
+	background: -webkit-gradient(linear, 195 top, 200 top, from(#ddd), to(#ccc));
+}
+
+#content,
+#content-toolbox {
+	background: #F0F0F0;
+	border-left: 1px solid #bbb;
+	margin-left: 200px;
 }
 
 #content {
-	background: #F0F0F0;
-	margin-left: 200px;
 	min-height: 600px;
 	padding-bottom: 10px;
 }
 
-footer {
+#footer {
 	border-top: 3px solid #006a81;
 	color: #aaa;
 	font-family: sans-serif;
@@ -51,14 +56,36 @@ footer {
 	padding: 10px 20px;
 }
 
-	footer a {
+	#footer a {
 		color: #eee;
 	}
 
-#main-nav .home {
-	border-bottom: 1px dashed #888;
-	margin-bottom: 5px;
-	padding-bottom: 5px;
+#main-nav > ul > li {
+	border-top: 1px dashed #888;
+	font-family: 'Bebas';
+	margin: 7px 0 10px;
+	padding-left: 5px;
+}
+
+#main-nav > ul > li:FIRST-CHILD {
+	border-top: none;
+}
+
+#main-nav > ul > li > ul {
+	margin-top: 3px;
+}
+
+#main-nav > ul > li > ul * {
+	font-family: serif;
+}
+
+#main-nav .page {
+	margin-left: -5px;
+	padding-left: 20px;
+}
+
+#main-nav .current {
+	background-color: #c0c0c0;
 }
 
 nav {
@@ -73,6 +100,7 @@ nav {
 	
 	nav a {
 		color: inherit;
+		display: block;
 		text-decoration: none;
 		text-shadow: 0 1px 0 #F0F0F0;
 	}
@@ -91,6 +119,7 @@ nav {
 .page-header h1 {
 	font-family: 'Bebas';
 	font-size: 1.5em;
+	letter-spacing: 1px;
 	margin: 0;
 	padding: 10px 20px;
 	text-shadow: 0 2px 0 #white;
@@ -107,11 +136,20 @@ nav {
 	margin-right: 10px;
 }
 
-#sidebar {
+#sidebar,
+#sidebar-toolbox {
 	float: left;
-	font-family: 'Bebas';
-	padding: 10px 5px;
-	width: 190px;
+	width: 200px;
+}
+
+#sidebar {
+	padding-top: 10px;
+}
+
+.toolbox {
+	color: #777;
+	font-size: small;
+	padding: 3px;
 }
 
 .wiki-content {
@@ -124,6 +162,7 @@ nav {
 		border-bottom: 1px solid #bbb;
 	    font-family: 'Bebas';
 		font-size: 2em;
+		letter-spacing: 1px;
 		padding-bottom: 5px;
 	}
 	

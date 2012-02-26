@@ -19,11 +19,24 @@ String cp = request.getContextPath();
 				<li><a href="<%=cp %>/history/<%=titre %>" class="<%=request.getRequestURI().startsWith(cp + "/history") ? "select" : "" %>">History</a></li>
 			</ul>
 		</nav>
-		<h1><%=current %></h1>
+		<h1><%=current.length() == 0 ? "Home" : current %></h1>
 		<%@include file="fragments/breadcrumb.jsp" %>
 	</header>
 	
 	<div class="wiki-content"><%=contenu %></div>
 </article>
+
+<footer id="toolbox">
+	<aside id="sidebar-toolbox" class="toolbox">
+		Last commit <%=headCommit.getName().substring(0, 7) %>
+	</aside>
+	<article id="content-toolbox" class="toolbox">
+		<nav>
+			<ul>
+				<li><a href="<%=cp %>/wiki<%=path %>?format=html">Download page</a></li>
+			</ul>
+		</nav>
+	</article>
+</footer>
 
 <%@include file="fragments/footer.jsp" %>

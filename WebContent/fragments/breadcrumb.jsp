@@ -1,5 +1,6 @@
 <%
 String path = "";
+if (current.length() > 0) {
 %>
 <nav class="breadcrumb">
 	<ul>
@@ -15,3 +16,4 @@ String path = "";
 	<%} %>
 	</ul>
 </nav>
+<%} %>
