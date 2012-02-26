@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 /**
  * Servlet implementation class PageServlet
@@ -78,8 +76,13 @@ public class PageServlet extends HttpServlet {
 
 	private void render(String content, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String jsp = "/page-template.jsp";
+		if ("html".equalsIgnoreCase(request.getParameter("format"))) {
+			jsp = "/page-rawhtml.jsp";
+		}
+		
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/page-template.jsp");
+				.getRequestDispatcher(jsp);
 		request.setAttribute("contenu", content);
 		request.setAttribute("repo", this.repo.getRepository());
 		dispatcher.forward(request, response);

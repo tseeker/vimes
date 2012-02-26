@@ -29,11 +29,17 @@ public class UrlRewriteFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		Matcher m = URL_PATTERN.matcher(((HttpServletRequest) request).getServletPath());
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		
+		Matcher m = URL_PATTERN.matcher(httpRequest.getServletPath());
 		if (m.find()) {
 			String prefix = m.group(1);
 			String page = m.group(2);
-			String url = "/" + prefix + "?p=" + page;
+			String url = "/" + prefix + "?p=" + (page.indexOf("?") > 0 ? page.substring(0, page.indexOf("?")) : page);
+			
+			if (httpRequest.getParameter("format") != null) {
+				url += "&format=" + httpRequest.getParameter("format");
+			}
 			request.getRequestDispatcher(url).forward(request, response);
 		} else {
 			// pass the request along the filter chain
