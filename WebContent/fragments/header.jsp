@@ -1,3 +1,5 @@
+<%@page import="org.eclipse.jgit.api.Git"%>
+<%@page import="org.eclipse.jgit.revwalk.RevCommit"%>
 <%@page import="org.eclipse.jgit.lib.ObjectLoader"%>
 <%@page import="org.eclipse.jgit.treewalk.TreeWalk"%>
 <%@page import="org.eclipse.jgit.revwalk.RevTree"%>
@@ -7,6 +9,8 @@
 <%@page import="org.eclipse.jgit.lib.Repository"%>
 <%
 Repository repo = (Repository) request.getAttribute("repo");
+Git git = new Git(repo);
+RevCommit headCommit = git.log().call().iterator().next();
 ObjectId head = repo.resolve(Constants.HEAD);
 TreeWalk treeWalk = new TreeWalk(repo);
 treeWalk.addTree(new RevWalk(repo).parseTree(head));
@@ -35,4 +39,8 @@ treeWalk.addTree(new RevWalk(repo).parseTree(head));
 					<%} %>
 					</ul>
 				</nav>
+				
+				<div class="last-commit">
+					Last commit <%=headCommit.getName().substring(0, 7) %> by <%=headCommit.getAuthorIdent().getName() %>
+				</div>
 			</aside>

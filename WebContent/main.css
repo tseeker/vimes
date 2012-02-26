@@ -121,6 +121,11 @@ nav {
 	width: 195px;
 }
 
+#sidebar .last-commit {
+	font-size: small;
+	margin-top: 30px;
+}
+
 .wiki-content {
 	font-family: 'Arial', sans-serif;
 	font-size: 14px;
