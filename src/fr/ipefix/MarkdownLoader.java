@@ -81,6 +81,7 @@ class MarkdownLoader {
 			String input;
 			while ((input = reader.readLine()) != null) {
 				str.append(input);
+				str.append("\n");
 			}
 			return str.toString();
 		} finally {
